@@ -120,7 +120,7 @@ app.get("/getAllData",async(req,res)=>{
 
     try{
 
-        const CarsPerPage = 10;
+        const CarsPerPage = 100;
         const apiFeature = new ApiFeatures(Car.find(), req.query).search().filter().pagination(CarsPerPage);
         const products = await apiFeature.query;
         // const CarData = await Car.find({});
@@ -164,18 +164,21 @@ app.get("/:id",async(req,res)=>{
 app.post("/add-cars",  upload.single('photo'), async(req,res)=>{
     try {
         
-        const { name, price, brand,model, seller, performance,owner, miLeg, serviving } = req.body;        const photo = req.file;
+        const { name, price, brand,model, seller, performance,owner, miLeg, serviving } = req.body;        
+        
+        const photo = req.file;
         
         
         // if(name && price && brand &&seller&& year &&performance&& owner &&MiLeg&& serviving &&photo){
          
         const car =  await Car.create({
-                name, price ,brand ,seller ,model, performance ,owner, miLeg ,serviving,photo:photo?.path
+                name, price ,brand ,seller ,model, performance ,owner, miLeg ,serviving,photo:`${req.protocol}://${req.get('host')}/uploads/${photo.filename}`
             });
 
             return res.status(201).json({
                 success : true,
                 message : "Product create Successfully",
+                car
             })
 
     // }else{

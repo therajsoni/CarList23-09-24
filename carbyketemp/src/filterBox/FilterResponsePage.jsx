@@ -145,7 +145,19 @@ const FilterResponsePage = ({theme}) => {
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 max-w-4xl mx-auto">
                         {cars.map(car => (
                             <Link to={`/list/${car._id}`} key={car._id} className={`font-sans font-bolder  w-[100%] border border-yellow-400 border-x-2 border-y-2 hover:border-yellow-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline text-center text-yellow-600 ${state ? 'text-white' : 'text-yellow-400' } ${state ? 'bg-customRed' : 'bg-white' }`} >
-                                {car.name} - {car.brand} - {car.price}
+                                <div>
+                                <img src={car.photo}/>
+                                 </div>
+                               <p>
+                                name :  {car.name}
+                                </p>
+                                 <p>
+                                brand : {car.brand} 
+                                 </p>
+                                 <p>
+                                price : {car.price} 
+                                 </p>
+                                
                             </Link>
                         ))}
                     </div>
